@@ -13,6 +13,8 @@ import 'hardhat-contract-sizer';
 import { HardhatUserConfig } from 'hardhat/config';
 import { MochaOptions } from 'mocha';
 
+const { PRIVATE_KEY } = process.env;
+
 interface EnvOptions {
   ETHEREUM_PROVIDER_URL?: string;
   ETHEREUM_ETHERSCAN_API_KEY?: string;
@@ -42,6 +44,8 @@ interface EnvOptions {
   POLYGON_AMOY_PROVIDER_URL?: string;
   SCROLL_SEPOLIA_PROVIDER_URL?: string;
   LINEA_GOERLI_PROVIDER_URL?: string;
+  STORY_MAINNET_PROVIDER_URL?: string;
+  STORY_ETHERSCAN_API_URL?: string;
   PROFILE?: boolean;
 }
 
@@ -74,6 +78,8 @@ const {
   POLYGON_ETHERSCAN_API_KEY = '',
   SCROLL_SEPOLIA_PROVIDER_URL = '',
   LINEA_GOERLI_PROVIDER_URL = '',
+  STORY_MAINNET_PROVIDER_URL = '',
+  STORY_ETHERSCAN_API_URL = '',
   PROFILE: isProfiling
 }: EnvOptions = process.env as any as EnvOptions;
 
@@ -195,6 +201,16 @@ const config: HardhatUserConfig = {
       live: true,
       verify: {
         etherscan: { apiKey: LINEA_ETHERSCAN_API_KEY }
+      }
+    },
+    [DeploymentNetwork.StoryMainnet]: {
+      chainId: 1315,
+      url: STORY_MAINNET_PROVIDER_URL,
+      saveDeployments: true,
+      accounts: PRIVATE_KEY ? [PRIVATE_KEY] : [],
+      live: true,
+      verify: {
+        etherscan: { apiUrl: STORY_ETHERSCAN_API_URL }
       }
     },
     [DeploymentNetwork.Sepolia]: {

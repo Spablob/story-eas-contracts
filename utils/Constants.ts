@@ -20,6 +20,7 @@ export enum DeploymentNetwork {
   PolygonAmoy = 'polygon-amoy',
   ScrollSepolia = 'scroll-sepolia',
   LineaGoerli = 'linea-goerli',
+  StoryMainnet = 'story-mainnet',
   Hardhat = 'hardhat'
 }
 
